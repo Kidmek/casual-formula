@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import "./Suggestions.css";
+import "./suggestions.css";
 
 const Suggestions = ({ items, command }) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
