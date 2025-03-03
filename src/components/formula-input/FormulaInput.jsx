@@ -3,7 +3,7 @@ import StarterKit from "@tiptap/starter-kit";
 import Mention from "@tiptap/extension-mention";
 import { useEffect } from "react";
 import tippy from "tippy.js";
-import "./FormulaInput.css";
+import "./formulaInput.css";
 import Suggestions from "../suggestions/Suggestions";
 import { useQueryClient } from "@tanstack/react-query";
 import useStore from "../../store";
