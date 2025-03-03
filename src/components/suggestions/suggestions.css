@@ -1,26 +1,75 @@
 .suggestions {
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 6px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 200px;
   max-height: 240px;
   overflow-y: auto;
-  width: 220px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+  margin-top: 8px;
+  border: 1px solid #e0e0e0;
+}
+
+.suggestions::-webkit-scrollbar {
+  width: 8px;
+}
+
+.suggestions::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 8px;
+}
+
+.suggestions::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 8px;
+}
+
+.suggestions::-webkit-scrollbar-thumb:hover {
+  background: #a1a1a1;
 }
 
 .suggestion {
-  padding: 8px 12px;
-  color: #2d3748;
+  padding: 10px 16px;
   cursor: pointer;
-  font-size: 14px;
-  transition: background 0.1s ease, color 0.1s ease;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #f0f0f0;
+  transition: background-color 0.2s ease;
 }
 
-.suggestion:hover {
-  background: #edf2f7;
+.suggestion[data-decoration-id] {
+  padding: 0;
+  width: min-content;
+  display: inline;
+}
+
+.suggestion-name {
+  font-weight: 500;
+  color: #333;
+}
+
+.suggestion-value {
+  color: #1976d2;
+  font-size: 0.9em;
+  font-weight: 500;
+  background-color: #e3f2fd;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.suggestion:last-child {
+  border-bottom: none;
+}
+
+.suggestion:hover,
+.suggestion.selected {
+  background-color: #f5f5f5;
 }
 
 .suggestion.selected {
-  background: #4a90e2;
-  color: #ffffff;
+  background-color: #e3f2fd;
 }

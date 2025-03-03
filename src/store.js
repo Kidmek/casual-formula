@@ -8,7 +8,7 @@ const useStore = create((set) => ({
       try {
         return { formulaResult: evaluate(formula).toString() };
       } catch {
-        return { formulaResult: "Invalid" };
+        return { formulaResult: "Invalid Syntax" };
       }
     }),
 }));

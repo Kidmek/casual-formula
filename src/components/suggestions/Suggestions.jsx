@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import "./suggestions.css";
+import "./Suggestions.css";
 
 const Suggestions = ({ items, command }) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -42,7 +42,8 @@ const Suggestions = ({ items, command }) => {
           className={`suggestion ${index === selectedIndex ? "selected" : ""}`}
           onClick={() => selectItem(index)}
         >
-          {item.name}
+          <div className="suggestion-name">{item.name}</div>
+          <div className="suggestion-value">{item.value}</div>
         </div>
       ))}
     </div>

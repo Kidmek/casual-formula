@@ -3,7 +3,7 @@ import StarterKit from "@tiptap/starter-kit";
 import Mention from "@tiptap/extension-mention";
 import { useEffect } from "react";
 import tippy from "tippy.js";
-import "./formulaInput.css";
+import "./FormulaInput.css";
 import Suggestions from "../suggestions/Suggestions";
 import { useQueryClient } from "@tanstack/react-query";
 import useStore from "../../store";
@@ -24,6 +24,13 @@ const CustomMention = Mention.extend({
   },
   addKeyboardShortcuts() {
     return { Enter: () => true };
+  },
+  renderHTML({ node }) {
+    return [
+      "span",
+      { class: "mention", "data-id": node.attrs.id },
+      node.attrs.label,
+    ];
   },
 });
 
@@ -108,6 +115,40 @@ const FormulaInput = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [editor?.state.doc.content, updateFormula]);
 
+  useEffect(() => {
+    if (!editor) return;
+
+    const handleMentionClick = (event) => {
+      const mention = event.target.closest(".mention");
+
+      if (mention) {
+        // Create a new popover and attach it outside the input
+        tippy(mention, {
+          content: `<div class="suggestions mention-menu">
+                      <button class="mention-menu-item">View Details</button>
+                      <button class="mention-menu-item">Edit</button>
+                      <button class="mention-menu-item">Remove</button>
+                    </div>`,
+          allowHTML: true,
+          interactive: true,
+          trigger: "manual",
+          placement: "bottom-start",
+          theme: "light-border",
+          appendTo: () => document.body, // Ensure it renders as a separate popover
+          onClickOutside: (instance) => {
+            instance.hide();
+          },
+        }).show();
+      }
+    };
+
+    document.addEventListener("click", handleMentionClick);
+
+    return () => {
+      document.removeEventListener("click", handleMentionClick);
+    };
+  }, [editor]);
+
   return (
     <div className="editor-container">
       <EditorContent editor={editor} className="tiptap" />
@@ -115,13 +156,9 @@ const FormulaInput = () => {
         <div
           className={`result ${formulaResult === "Invalid" ? "invalid" : ""}`}
         >
-          Result: {formulaResult}
+          {formulaResult}
         </div>
       )}
-      <div className="hint">
-        Use numbers and operators (e.g., 2 + 3). Type '@' after a space (not
-        next to a character) to fetch functions.
-      </div>
     </div>
   );
 };
